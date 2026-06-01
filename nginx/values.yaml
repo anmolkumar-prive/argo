@@ -1,0 +1,14 @@
+helm:
+  values: |
+    replicaCount: 2
+
+    service:
+      type: ClusterIP
+
+    resources:
+      requests:
+        cpu: 100m
+        memory: 128Mi
+      limits:
+        cpu: 250m
+        memory: 256Mi

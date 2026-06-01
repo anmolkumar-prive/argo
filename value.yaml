@@ -1,0 +1,4 @@
+global:
+  image:
+    tag: "v3.4.3"
+ 
