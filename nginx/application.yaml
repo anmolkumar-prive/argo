@@ -9,7 +9,7 @@ spec:
   source:
     repoURL: https://github.com/anmolkumar-prive/argo.git
     targetRevision: main
-    path: .
+    path: nginx
     helm:
       valueFiles:
         - values.yaml
