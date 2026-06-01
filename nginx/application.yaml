@@ -7,9 +7,9 @@ spec:
   project: default
 
   source:
-    repoURL: https://charts.bitnami.com/bitnami
-    chart: nginx
-    targetRevision: 24.0.4
+    repoURL: https://github.com/anmolkumar-prive/argo.git
+    targetRevision: main
+    path: .
     helm:
       valueFiles:
         - values.yaml
