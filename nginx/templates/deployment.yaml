@@ -1,12 +1,14 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
 metadata:
   name: nginx
 spec:
   replicas: {{ .Values.replicaCount }}
+
   selector:
     matchLabels:
       app: nginx
+
   template:
     metadata:
       labels:
@@ -14,6 +16,19 @@ spec:
     spec:
       containers:
         - name: nginx
-          image: nginx:latest
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           ports:
             - containerPort: 80
+
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause:
+            duration: 30s
+
+        - setWeight: 50
+        - pause:
+            duration: 30s
+
+        - setWeight: 100
