@@ -1,26 +1,32 @@
 apiVersion: argoproj.io/v1alpha1
-kind: Application
+kind: Rollout
 metadata:
-  name: nginx-helm-demo
-  namespace: argocd
+  name: nginx
 spec:
-  project: default
+  replicas: 5
 
-  source:
-    repoURL: https://github.com/anmolkumar-prive/argo.git
-    targetRevision: main
-    path: nginx
-    helm:
-      valueFiles:
-        - values.yaml
+  selector:
+    matchLabels:
+      app: nginx
 
-  destination:
-    server: https://kubernetes.default.svc
-    namespace: nginx-helm
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.27
 
-  syncPolicy:
-    automated:
-      prune: true
-      selfHeal: true
-    syncOptions:
-      - CreateNamespace=true
+  strategy:
+    canary:
+      steps:
+      - setWeight: 20
+      - pause:
+          duration: 30s
+
+      - setWeight: 50
+      - pause:
+          duration: 30s
+
+      - setWeight: 100
