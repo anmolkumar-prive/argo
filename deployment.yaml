@@ -25,10 +25,10 @@ spec:
     canary:
       steps:
       - setWeight: 10
-      - pause: {duration: 60s}
+      - pause: {duration: 10s}
 
       - setWeight: 30
-      - pause: {duration: 60s}
+      - pause: {duration: 10s}
 
       - setWeight: 60
-      - pause: {duration: 60s}
+      - pause: {duration: 10s}
